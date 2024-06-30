@@ -1,13 +1,9 @@
 package slice
 
 import (
-	"github.com/mizumoto-cn/gogenerices/internal/slice"
+	"github.com/mizumoto-cn/gogenerics/internal/slice"
 )
 
-func Insert[T any](s []T, index int, value T) (result []T, err error) {
-	if index < 0 || index > len(s) {
-		return nil, slice.ErrIndexOutOfRange
-	}
-	result = append(s[:index], append([]T{value}, s[index:]...)...)
-	return
+func Insert[T any](s []T, index int, value T) ([]T, error) {
+	return slice.Insert(s, index, value)
 }
