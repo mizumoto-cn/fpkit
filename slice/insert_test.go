@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/mizumoto-cn/fpkit/internal/err"
-	"github.com/mizumoto-cn/fpkit/internal/slice"
+	"github.com/mizumoto-cn/fpkit/slice"
 
-	assert "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestInsert(t *testing.T) {
@@ -58,8 +58,12 @@ func TestInsert(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.title, func(t *testing.T) {
 			got, err := slice.Insert(c.slice, c.index, c.value)
+			if c.expectedErr != nil {
+				assert.Equal(t, c.expectedErr, err)
+				return
+			}
+			assert.Nil(t, err)
 			assert.Equal(t, c.want, got)
-			assert.Equal(t, c.expectedErr, err)
 		})
 	}
 }

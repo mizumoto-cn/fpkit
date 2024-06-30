@@ -3,7 +3,7 @@ package functional_test
 import (
 	"testing"
 
-	"github.com/mizumoto-cn/gogenerics/functional"
+	"github.com/mizumoto-cn/fpkit/functional"
 
 	assert "github.com/stretchr/testify/assert"
 )

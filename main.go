@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mizumoto-cn/gogenerics/functional"
+import "github.com/mizumoto-cn/fpkit/functional"
 
 type outer struct {
 	inner

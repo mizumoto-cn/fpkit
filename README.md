@@ -1,4 +1,4 @@
-# goGenerics
+# fpkit
 
 [中文](./README_zh.md)
 
@@ -9,7 +9,7 @@ A light-weight Go generics tools lib.
 First, install the package.
 
 ```bash
-go get github.com/mizumoto-cn/gogenerics@latest
+go get github.com/mizumoto-cn/fpkit@latest
 ```
 
 This library is developed using Go 1.22.4 and later, and your Go version should be 1.18 or later.
@@ -25,11 +25,13 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 ### v0.0.1
 
 - [] Basic Slice: CRUD, Union, Intersection
+- [] Basic Functional Programming: types and operations
 
 ## Roadmap
 
 ### v0.1.0
 
+- [] Change Basic Slice to Functional Programming
 - [] Advanced Slice: Map reduce API
 - [] Basic Map
 - [] Advanced Map: Hash map, Tree map, Linked map
