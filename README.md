@@ -25,6 +25,7 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 ### v0.0.1
 
 - [] Basic Slice: CRUD, Union, Intersection
+- [] Basic Functional Programming: types and operations
 
 ## Roadmap
 
