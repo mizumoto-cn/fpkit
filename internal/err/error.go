@@ -6,7 +6,7 @@ import (
 )
 
 func NewIndexOutOfRangeError(index, length int) error {
-	return fmt.Errorf("fpkit: index out of range: %d (length: %d)", index, length)
+	return fmt.Errorf("fpkit: index out of range: [%d] with length: %d", index, length)
 }
 
 func NewTypeCastError(from any, to string) error {
@@ -14,5 +14,5 @@ func NewTypeCastError(from any, to string) error {
 }
 
 func NewInvaliadTimeIntarvalError(interval time.Duration) error {
-	return fmt.Errorf("fpkit: invalid time interval: %v", interval)
+	return fmt.Errorf("fpkit: invalid time interval: [%v]", interval)
 }

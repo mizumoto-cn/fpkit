@@ -10,6 +10,7 @@ func Sum[T Numeric](a ...T) T {
 	return sum
 }
 
+// For comparison in this package, >0 means a > b, <0 means a < b, and 0 means a == b.
 func CompareTo[T Orderable](a, b T) int {
 	if a > b {
 		return 1

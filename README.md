@@ -2,7 +2,7 @@
 
 [中文](./README_zh.md)
 
-A light-weight Go generics tools lib.
+A light-weight Go functional tools lib, with generic programming support.
 
 ## Quick Start
 
@@ -22,27 +22,42 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 ## Milestones
 
+## Roadmap
+
 ### v0.0.1
 
-- [] Basic Slice: CRUD, Union, Intersection
-- [] Basic Functional Programming: types and operations
+- [ ] Basic Slice: CRUD, Union, Intersection
+- [ ] Basic Functional Programming: Map, Filter, Reduce/Fold, Numeric, ...
 
-## Roadmap
+### v0.0.2
+
+- [ ] Functional Programming: Optional/Maybe
+- [ ] Functional Programming: Currying, Composition, ...
+- [ ] Basic Queue: Queue, Priority Queue
 
 ### v0.1.0
 
-- [] Change Basic Slice to Functional Programming
-- [] Advanced Slice: Map reduce API
-- [] Basic Map
-- [] Advanced Map: Hash map, Tree map, Linked map
-- [] Set: Hash set, Tree set, Sorted set
-- [] Queue: Basic queue, Priority queue
+- [ ] Change Basic Slice to more functional programming style
+- [ ] Basic Map
+- [ ] Advanced Map: Hash map, Tree map, Linked map
+- [ ] Set: Hash set, Tree set, Sorted set
+- [ ] Advanced Queue and Concurrency: Concurrent queue, Concurrent blocking queue, Concurrent blocking priority queue
 
-### v1.0.0
+### v0.2.0
 
-- [] Bean: Basic bean, Bean copy, Bean compare
-- [] Concurrency: Concurrent queue, Concurrent blocking queue, Concurrent blocking priority queue
-- [] Coroutine: Coroutine pool
+- [ ] Stream-like Operations: FlatMap, GroupBy, ...
+  
+### v0.3.0
+
+- [ ] Bean: Basic bean, Bean copy, Bean compare
+- [ ] Concurrency/Coroutine: CoroutinePool/WorkerPool ...
+
+### v0.4.0
+
+### v1.0.0 and later
+
+- [ ] Advanced Functional Programming: Monad, Rx, ...
+- [ ] Advanced Functional Programming: **Pattern Matching**
 
 ### Licensing
 

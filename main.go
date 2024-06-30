@@ -1,30 +1,17 @@
 package main
 
-import "github.com/mizumoto-cn/fpkit/functional"
+import (
+	"slices"
 
-type outer struct {
-	inner
-}
-
-func (o outer) Name() string {
-	return "outer"
-}
-
-func (i inner) Name() string {
-	return "inner"
-}
-
-type inner struct {
-}
-
-func (i inner) Say() {
-	println("hello," + i.Name())
-}
+	"github.com/mizumoto-cn/fpkit/functional"
+)
 
 func main() {
-	o := outer{}
-	o.Say()
 
 	println(functional.Sum(1, 2, 3+4i))
 
+	mlist := []int{}
+
+	m := slices.Max[[]int](mlist)
+	print(m)
 }
