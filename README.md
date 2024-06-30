@@ -31,6 +31,7 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 ### v0.1.0
 
+- [] Change Basic Slice to Functional Programming
 - [] Advanced Slice: Map reduce API
 - [] Basic Map
 - [] Advanced Map: Hash map, Tree map, Linked map
