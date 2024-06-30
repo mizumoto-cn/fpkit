@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"github.com/mizumoto-cn/gogenerics/internal/slice"
+	"github.com/mizumoto-cn/fpkit/internal/slice"
 )
 
 func Insert[T any](s []T, index int, value T) ([]T, error) {

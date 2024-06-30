@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/mizumoto-cn/gogenerics/functional"
+	"github.com/mizumoto-cn/fpkit/functional"
 
 	"github.com/stretchr/testify/assert"
 )

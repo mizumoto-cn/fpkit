@@ -1,4 +1,4 @@
-# goGenerics
+# fpkit
 
 一个轻量级的 Go 泛型工具库。
 
@@ -7,7 +7,7 @@
 首先，安装该包。
 
 ```bash
-go get github.com/mizumoto-cn/gogenerics@latest
+go get github.com/mizumoto-cn/fpkit@latest
 ```
 
 此库是使用 Go 1.22.4 及更高版本开发的，你的 Go 版本应为 1.18 或更高。

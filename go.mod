@@ -1,4 +1,4 @@
-module github.com/mizumoto-cn/gogenerics
+module github.com/mizumoto-cn/fpkit
 
 go 1.22.4
 

@@ -3,8 +3,8 @@ package slice_test
 import (
 	"testing"
 
-	"github.com/mizumoto-cn/gogenerics/internal/err"
-	"github.com/mizumoto-cn/gogenerics/slice"
+	"github.com/mizumoto-cn/fpkit/internal/err"
+	"github.com/mizumoto-cn/fpkit/slice"
 
 	"github.com/stretchr/testify/assert"
 )
