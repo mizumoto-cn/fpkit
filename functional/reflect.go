@@ -2,6 +2,8 @@ package functional
 
 import "reflect"
 
+// The PtrOf function returns a new pointer to a copy of the passed-in value,
+// not the address of the original variable.
 func PtrOf[T any](v T) *T {
 	return &v
 }
