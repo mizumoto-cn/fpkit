@@ -57,13 +57,9 @@ func TestInsert(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.title, func(t *testing.T) {
-			if c.expectedErr != nil {
-				assert.PanicsWithError(t, c.expectedErr.Error(), func() {
-					slice.Insert(c.slice, c.index, c.value)
-				})
-			} else {
-				assert.Equal(t, c.want, slice.Insert(c.slice, c.index, c.value))
-			}
+			got, err := slice.Insert(c.slice, c.index, c.value)
+			assert.Equal(t, c.want, got)
+			assert.Equal(t, c.expectedErr, err)
 		})
 	}
 }
