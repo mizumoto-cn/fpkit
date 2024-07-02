@@ -34,8 +34,8 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 ### v0.0.1
 
-- [ ] Basic Slice: CRUD, Union, Intersection
-- [ ] Basic Functional Programming: Map, Filter, Reduce/Fold, Numeric, ...
+- [x] Basic Slice: CRUD, Union, Intersection
+- [x] Basic Functional Programming: Map, Filter, Reduce/Fold, Numeric, ...
 
 ### v0.0.2
 
