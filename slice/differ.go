@@ -17,3 +17,19 @@
  * limitations under the License.
  */
 package slice
+
+// Difference returns a slice of elements that are in s1 but not in s2.
+// returns an nil slice if s1 and s2 are equal.
+func Difference[T comparable](s1, s2 []T) []T {
+	elementMap := make(map[T]bool)
+	for _, v := range s2 {
+		elementMap[v] = true
+	}
+	var diff []T
+	for _, v := range s1 {
+		if !elementMap[v] {
+			diff = append(diff, v)
+		}
+	}
+	return diff
+}
