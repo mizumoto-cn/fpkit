@@ -58,6 +58,24 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 - [ ] Advanced Functional Programming: Monad, Rx, ...
 - [ ] Advanced Functional Programming: **Pattern Matching**
+- [ ] Encapsulated Functions using Advanced Functional Programming Features
+
+## Design Philosophy
+
+### Functional Programming vs Go
+
+#### Records of v0.0.1
+
+- Nil slice or "Empty" slice when error occurs?
+  - We all know that in Go, a default initialized slice is `nil`, and an empty slice is `[]T{}`, they are different.
+  - Though some functional programming languages tend to use empty list to represent "nothing", we still prefer to use `nil` here.
+  - As I believe that when an `error` occurs, the result should be abandoned, and the `nil` slice is a better choice.
+
+- FP Features in Underlying Packages?
+  - Maybe not. That would cost unnecessary time and space overhead, even if the Go compiler seems to do a pretty good job of optimizing for it.
+  - In functional programming, we usually use `Option` or `Maybe` to represent a value that may be `nil` or `None`. But that was not implemented until v0.0.2.
+  - Yet you can also use `functional.Some(slice.Insert(...))` to wrap the result.
+  - We will also implement encapsulated functions like `slice.InsertOrError(...)` to return `Option` or `Maybe` in the future.(>=v0.4.0 or v1.0.0)
 
 ### Licensing
 
