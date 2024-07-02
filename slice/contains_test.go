@@ -76,3 +76,105 @@ func TestContains(t *testing.T) {
 		})
 	}
 }
+
+func TestContainsAny(t *testing.T) {
+	cases := []struct {
+		title  string
+		src    []int
+		values []int
+		want   bool
+	}{
+		{
+			title:  "empty",
+			src:    []int{},
+			values: []int{1, 2, 3},
+			want:   false,
+		},
+		{
+			title:  "single",
+			src:    []int{1},
+			values: []int{1, 2, 3},
+			want:   true,
+		},
+		{
+			title:  "multiple",
+			src:    []int{1, 2, 3, 4, 5},
+			values: []int{3, 4, 5},
+			want:   true,
+		},
+		{
+			title:  "negative",
+			src:    []int{-1, -2, -3, -4, -5},
+			values: []int{-3, -4, -5},
+			want:   true,
+		},
+		{
+			title:  "mixed",
+			src:    []int{-1, 2, -3, 4, -5},
+			values: []int{4, 5, 6},
+			want:   true,
+		},
+		{
+			title:  "not found",
+			src:    []int{1, 2, 3, 4, 5},
+			values: []int{6, 7, 8},
+			want:   false,
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			assert.Equal(t, c.want, slice.ContainsAny(c.src, c.values...))
+		})
+	}
+}
+
+func TestContainsAll(t *testing.T) {
+	cases := []struct {
+		title  string
+		src    []int
+		values []int
+		want   bool
+	}{
+		{
+			title:  "empty",
+			src:    []int{},
+			values: []int{1, 2, 3},
+			want:   false,
+		},
+		{
+			title:  "single",
+			src:    []int{1},
+			values: []int{1},
+			want:   true,
+		},
+		{
+			title:  "multiple",
+			src:    []int{1, 2, 3, 4, 5},
+			values: []int{3, 4, 5},
+			want:   true,
+		},
+		{
+			title:  "negative",
+			src:    []int{-1, -2, -3, -4, -5},
+			values: []int{-3, -4, -5},
+			want:   true,
+		},
+		{
+			title:  "mixed",
+			src:    []int{-1, 2, -3, 4, -5},
+			values: []int{4, -5},
+			want:   true,
+		},
+		{
+			title:  "not found",
+			src:    []int{1, 2, 3, 4, 5},
+			values: []int{6, 7, 8},
+			want:   false,
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			assert.Equal(t, c.want, slice.ContainsAll(c.src, c.values))
+		})
+	}
+}
