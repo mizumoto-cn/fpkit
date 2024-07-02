@@ -1,5 +1,13 @@
 # fpkit
 
+![Go Version](https://img.shields.io/badge/Go-1.22.4-yellow.svg)
+[![License](https://img.shields.io/badge/License-MGPL%20v1.5-green.svg)](/Licensing/Mizumoto.General.Public.License.v1.5.md)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/mizumoto-cn/fpkit)](https://goreportcard.com/report/github.com/mizumoto-cn/fpkit)
+[![CodeFactor](https://www.codefactor.io/repository/github/mizumoto-cn/fpkit/badge)](https://www.codefactor.io/repository/github/mizumoto-cn/fpkit)
+[![codecov](https://codecov.io/github/mizumoto-cn/fpkit/graph/badge.svg?token=KB82WFBUQ3)](https://codecov.io/github/mizumoto-cn/fpkit)
+[![Build](https://github.com/mizumoto-cn/fpkit/actions/workflows/go.yml/badge.svg)](https://github.com/mizumoto-cn//fpkit/actions)
+
 [中文](./README_zh.md)
 
 A light-weight Go functional tools lib, with generic programming support.
