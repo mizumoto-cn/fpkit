@@ -35,7 +35,7 @@ func IsPtr[T any](v T) bool {
 }
 
 func Kind[T any](v T) reflect.Kind {
-	return reflect.TypeOf(v).Kind()
+	return reflect.ValueOf(v).Kind()
 }
 
 func IsNil[T any](v T) bool {

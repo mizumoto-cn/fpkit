@@ -61,3 +61,136 @@ func TestPtrOf(t *testing.T) {
 		})
 	}
 }
+
+// Tests for SliceOf
+func TestSliceOf(t *testing.T) {
+	cases := []struct {
+		title string
+		v     []any
+		want  []any
+	}{
+		{
+			title: "ints",
+			v:     []any{1, 2, 3},
+			want:  []any{1, 2, 3},
+		},
+		{
+			title: "strings",
+			v:     []any{"a", "b", "c"},
+			want:  []any{"a", "b", "c"},
+		},
+		{
+			title: "structs",
+			v:     []any{struct{ Name string }{"mizumoto"}, struct{ Name string }{"cn"}},
+			want:  []any{struct{ Name string }{"mizumoto"}, struct{ Name string }{"cn"}},
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			got := functional.SliceOf(c.v...)
+			assert.True(t, reflect.DeepEqual(got, c.want))
+		})
+	}
+}
+
+// Tests for IsPtr
+func TestIsPtr(t *testing.T) {
+	vint := 1
+	vptr := &vint
+	cases := []struct {
+		title string
+		v     any
+		want  bool
+	}{
+		{
+			title: "int",
+			v:     vint,
+			want:  false,
+		},
+		{
+			title: "pointer",
+			v:     vptr,
+			want:  true,
+		},
+		{
+			title: "nil",
+			v:     nil,
+			want:  false,
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			got := functional.IsPtr(c.v)
+			assert.Equal(t, c.want, got)
+		})
+	}
+}
+
+// Tests for Kind
+func TestKind(t *testing.T) {
+	cases := []struct {
+		title string
+		v     any
+		want  reflect.Kind
+	}{
+		{
+			title: "int",
+			v:     1,
+			want:  reflect.Int,
+		},
+		{
+			title: "string",
+			v:     "hello",
+			want:  reflect.String,
+		},
+		{
+			title: "struct",
+			v:     struct{ Name string }{"mizumoto"},
+			want:  reflect.Struct,
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			got := functional.Kind(c.v)
+			assert.Equal(t, c.want, got)
+		})
+	}
+}
+
+// Tests for IsNil
+func TestIsNil(t *testing.T) {
+	var vptr *int
+	vint := 1
+	cases := []struct {
+		title string
+		v     any
+		want  bool
+	}{
+		{
+			title: "nil pointer",
+			v:     vptr,
+			want:  true,
+		},
+		{
+			title: "non-nil pointer",
+			v:     &vint,
+			want:  false,
+		},
+		{
+			title: "non-pointer",
+			v:     vint,
+			want:  false,
+		},
+		{
+			title: "invalid value",
+			v:     nil,
+			want:  true,
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			got := functional.IsNil(c.v)
+			assert.Equal(t, c.want, got)
+		})
+	}
+}
