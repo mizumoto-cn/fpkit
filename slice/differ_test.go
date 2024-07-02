@@ -21,66 +21,42 @@ package slice_test
 import (
 	"testing"
 
-	"github.com/mizumoto-cn/fpkit/internal/err"
 	"github.com/mizumoto-cn/fpkit/slice"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestInsert(t *testing.T) {
+func TestDifference(t *testing.T) {
+	var empty []int
 	cases := []struct {
-		title       string
-		slice       []int
-		index       int
-		value       int
-		want        []int
-		expectedErr error
+		title string
+		s1    []int
+		s2    []int
+		want  []int
 	}{
 		{
-			title: "insert to the head",
-			slice: []int{1, 2, 3},
-			index: 0,
-			value: 0,
-			want:  []int{0, 1, 2, 3},
+			title: "Difference between two slices: partial match",
+			s1:    []int{1, 2, 3, 4},
+			s2:    []int{2, 3, 5, 6},
+			want:  []int{1, 4},
 		},
 		{
-			title: "insert to the middle",
-			slice: []int{1, 2, 3},
-			index: 1,
-			value: 4,
-			want:  []int{1, 4, 2, 3},
+			title: "Difference between two slices: full match",
+			s1:    []int{1, 2, 3, 4},
+			s2:    []int{1, 2, 3, 4},
+			want:  empty,
 		},
 		{
-			title: "insert to the tail",
-			slice: []int{1, 2, 3},
-			index: 3,
-			value: 4,
+			title: "Difference between two slices: no match",
+			s1:    []int{1, 2, 3, 4},
+			s2:    []int{5, 6, 7, 8},
 			want:  []int{1, 2, 3, 4},
-		},
-		{
-			title:       "insert to the out of range",
-			slice:       []int{1, 2, 3},
-			index:       4,
-			value:       4,
-			expectedErr: err.NewIndexOutOfRangeError(4, 3),
-		},
-		{
-			title:       "insert to the negative index",
-			slice:       []int{1, 2, 3},
-			index:       -1,
-			value:       4,
-			expectedErr: err.NewIndexOutOfRangeError(-1, 3),
 		},
 	}
 
 	for _, c := range cases {
 		t.Run(c.title, func(t *testing.T) {
-			got, err := slice.Insert(c.slice, c.index, c.value)
-			if c.expectedErr != nil {
-				assert.Equal(t, c.expectedErr, err)
-				return
-			}
-			assert.Nil(t, err)
+			got := slice.Difference(c.s1, c.s2)
 			assert.Equal(t, c.want, got)
 		})
 	}

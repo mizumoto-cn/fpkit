@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2024 Ruiyuan "mizumoto-cn" Xu
+ *
+ * This file is part of "github.com/mizumoto-cn/fpkit".
+ *
+ * Licensed under the Mizumoto General Public License v1.5 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://github.com/mizumoto-cn/fpkit/blob/main/LICENSE
+ *     https://github.com/mizumoto-cn/fpkit/blob/main/licensing
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package functional_test
 
 import (
@@ -19,7 +37,8 @@ func TestSum(t *testing.T) {
 func TestCompareTo(t *testing.T) {
 	assert.Equal(t, 1, functional.CompareTo(3, 2))
 	assert.Equal(t, -1, functional.CompareTo(2.3, 33))
-	assert.Equal(t, 0, functional.CompareTo(-2, 2.4))
+	assert.Equal(t, -1, functional.CompareTo(-2, 2.4))
+	assert.Equal(t, 0, functional.CompareTo(3, 3))
 	assert.Equal(t, 1, functional.CompareTo("b", "a"))
 	assert.Equal(t, -1, functional.CompareTo("a", "b"))
 }

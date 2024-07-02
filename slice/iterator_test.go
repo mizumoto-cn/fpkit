@@ -26,53 +26,37 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestContains(t *testing.T) {
-	cases := []struct {
-		title string
-		src   []int
-		value int
-		want  bool
-	}{
-		{
-			title: "empty",
-			src:   []int{},
-			value: 1,
-			want:  false,
-		},
-		{
-			title: "single",
-			src:   []int{1},
-			value: 1,
-			want:  true,
-		},
-		{
-			title: "multiple",
-			src:   []int{1, 2, 3, 4, 5},
-			value: 3,
-			want:  true,
-		},
-		{
-			title: "negative",
-			src:   []int{-1, -2, -3, -4, -5},
-			value: -3,
-			want:  true,
-		},
-		{
-			title: "mixed",
-			src:   []int{-1, 2, -3, 4, -5},
-			value: 4,
-			want:  true,
-		},
-		{
-			title: "not found",
-			src:   []int{1, 2, 3, 4, 5},
-			value: 6,
-			want:  false,
-		},
+func TestIterator(t *testing.T) {
+	src := []int{1, 2, 3, 4}
+	it := slice.NewIterator(src)
+
+	//  HasNext  Next
+	for i := 0; i < len(src); i++ {
+		assert.True(t, it.HasNext())
+		assert.Equal(t, src[i], it.Next())
 	}
-	for _, c := range cases {
-		t.Run(c.title, func(t *testing.T) {
-			assert.Equal(t, c.want, slice.Contains(c.src, c.value))
-		})
-	}
+
+	// There should be no more elements
+	assert.False(t, it.HasNext())
+
+	// Reset the iterator
+	it.Reset()
+	assert.True(t, it.HasNext())
+
+	// Head, Tail, Last, Init
+	assert.Equal(t, src[0], it.Head())
+	assert.Equal(t, src[1:], it.Tail())
+	assert.Equal(t, src[len(src)-1], it.Last())
+	assert.Equal(t, src[:len(src)-1], it.Init())
+
+	// Index Remove
+	it.Reset()
+	it.Next()
+	assert.Equal(t, 0, it.Index())
+	it.Remove()
+	assert.Equal(t, []int{2, 3, 4}, it.Slice())
+
+	// Slice
+	it.Reset()
+	assert.Equal(t, []int{2, 3, 4}, it.Slice())
 }

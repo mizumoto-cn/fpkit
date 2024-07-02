@@ -18,18 +18,15 @@
  */
 package slice
 
-import (
-	"github.com/mizumoto-cn/fpkit/internal/err"
-)
+import "github.com/mizumoto-cn/fpkit/internal/err"
 
-func Insert[T any](s []T, index int, value T) ([]T, error) {
-	if index < 0 || index > len(s) {
-		return nil, err.NewIndexOutOfRangeError(index, len(s))
+func Delete[T any](src []T, index int) ([]T, T, error) {
+	l := len(src)
+	if index < 0 || index >= l {
+		var zero T
+		return nil, zero, err.NewIndexOutOfRangeError(index, l)
 	}
-	var zeroValue T
-	s = append(s, zeroValue)
-	// `copy` operates the memory directly, so it is faster than a for loop
-	copy(s[index+1:], s[index:])
-	s[index] = value
-	return s, nil
+	deleted := src[index]
+	copy(src[index:], src[index+1:])
+	return src[:l-1], deleted, nil
 }

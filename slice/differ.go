@@ -18,18 +18,18 @@
  */
 package slice
 
-import (
-	"github.com/mizumoto-cn/fpkit/internal/err"
-)
-
-func Insert[T any](s []T, index int, value T) ([]T, error) {
-	if index < 0 || index > len(s) {
-		return nil, err.NewIndexOutOfRangeError(index, len(s))
+// Difference returns a slice of elements that are in s1 but not in s2.
+// returns an nil slice if s1 and s2 are equal.
+func Difference[T comparable](s1, s2 []T) []T {
+	elementMap := make(map[T]bool)
+	for _, v := range s2 {
+		elementMap[v] = true
 	}
-	var zeroValue T
-	s = append(s, zeroValue)
-	// `copy` operates the memory directly, so it is faster than a for loop
-	copy(s[index+1:], s[index:])
-	s[index] = value
-	return s, nil
+	var diff []T
+	for _, v := range s1 {
+		if !elementMap[v] {
+			diff = append(diff, v)
+		}
+	}
+	return diff
 }
