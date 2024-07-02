@@ -37,7 +37,8 @@ func TestSum(t *testing.T) {
 func TestCompareTo(t *testing.T) {
 	assert.Equal(t, 1, functional.CompareTo(3, 2))
 	assert.Equal(t, -1, functional.CompareTo(2.3, 33))
-	assert.Equal(t, 0, functional.CompareTo(-2, 2.4))
+	assert.Equal(t, -1, functional.CompareTo(-2, 2.4))
+	assert.Equal(t, 0, functional.CompareTo(3, 3))
 	assert.Equal(t, 1, functional.CompareTo("b", "a"))
 	assert.Equal(t, -1, functional.CompareTo("a", "b"))
 }
