@@ -104,3 +104,100 @@ func TestSort(t *testing.T) {
 	}
 
 }
+
+func TestSortOrdered(t *testing.T) {
+	cases := []struct {
+		title     string
+		ascending bool
+		in        []int
+		want      []int
+	}{
+		{
+			title:     "ascending 1",
+			ascending: true,
+			in:        []int{3, 2, 1},
+			want:      []int{1, 2, 3},
+		},
+		{
+			title:     "descending 2",
+			ascending: false,
+			in:        []int{3, 2, 1},
+			want:      []int{3, 2, 1},
+		},
+		{
+			title:     "ascending 3",
+			ascending: true,
+			in:        []int{3, 2, 1, 4, 5},
+			want:      []int{1, 2, 3, 4, 5},
+		},
+		{
+			title:     "descending 4",
+			ascending: false,
+			in:        []int{3, 2, 1, 4, 5},
+			want:      []int{5, 4, 3, 2, 1},
+		},
+		{
+			title:     "ascending 5",
+			ascending: true,
+			in:        []int{3, 2, 1, 4, 5, 3, 2, 1, 4, 5},
+			want:      []int{1, 1, 2, 2, 3, 3, 4, 4, 5, 5},
+		},
+		{
+			title:     "descending 6",
+			ascending: false,
+			in:        []int{3, 2, 1, 4, 5, 3, 2, 1, 4, 5},
+			want:      []int{5, 5, 4, 4, 3, 3, 2, 2, 1, 1},
+		},
+	}
+	for _, c := range cases {
+		t.Run(c.title, func(t *testing.T) {
+			assert.Equal(t, c.want, functional.SortOrdered(c.ascending, c.in...))
+		})
+	}
+}
+
+func TestSortAsc(t *testing.T) {
+	cases := []struct {
+		in   []int
+		want []int
+	}{
+		{
+			in:   []int{3, 2, 1},
+			want: []int{1, 2, 3},
+		},
+		{
+			in:   []int{3, 2, 1, 4, 5},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			in:   []int{3, 2, 1, 4, 5, 3, 2, 1, 4, 5},
+			want: []int{1, 1, 2, 2, 3, 3, 4, 4, 5, 5},
+		},
+	}
+	for _, c := range cases {
+		assert.Equal(t, c.want, functional.SortAsc(c.in...))
+	}
+}
+
+func TestSortDesc(t *testing.T) {
+	cases := []struct {
+		in   []int
+		want []int
+	}{
+		{
+			in:   []int{3, 2, 1},
+			want: []int{3, 2, 1},
+		},
+		{
+			in:   []int{3, 2, 1, 4, 5},
+			want: []int{5, 4, 3, 2, 1},
+		},
+		{
+			in:   []int{3, 2, 1, 4, 5, 3, 2, 1, 4, 5},
+			want: []int{5, 5, 4, 4, 3, 3, 2, 2, 1, 1},
+		},
+	}
+	for _, c := range cases {
+		assert.Equal(t, c.want, functional.SortDesc(c.in...))
+	}
+}
