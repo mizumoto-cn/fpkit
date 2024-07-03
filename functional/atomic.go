@@ -16,7 +16,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package main
+package functional
 
-func main() {
+import "sync/atomic"
+
+type AtomicBool struct {
+	value int32
+}
+
+func (ab *AtomicBool) Set(value bool) {
+	var intVal int32
+	if value {
+		intVal = 1
+	} else {
+		intVal = 0
+	}
+	atomic.StoreInt32(&ab.value, intVal)
+}
+
+func (ab *AtomicBool) Get() bool {
+	return atomic.LoadInt32(&ab.value) == 1
 }

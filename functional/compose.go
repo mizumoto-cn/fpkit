@@ -16,7 +16,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package main
+package functional
 
-func main() {
+// Compose returns a function that is the composition of the given functions from right to left.
+func Compose[T any](fns ...func(T) T) func(T) T {
+	return func(x T) T {
+		for i := len(fns) - 1; i >= 0; i-- {
+			x = fns[i](x)
+		}
+		return x
+	}
+}
+
+// Pipe returns a function that is the composition of the given functions from left to right.
+func Pipe[T any](fns ...func(T) T) func(T) T {
+	return func(x T) T {
+		for i := range fns {
+			x = fns[i](x)
+		}
+		return x
+	}
 }
