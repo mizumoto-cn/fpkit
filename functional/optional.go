@@ -62,8 +62,8 @@ type Optional[T any] interface {
 	// Type: reflect.Type of the value, which is the detailed type of the value, i.e. int, []int, main.MyStruct, *int, etc.
 	Type() reflect.Type
 
-	IsTypeOf(reflect.Type) bool
 	IsKindOf(reflect.Kind) bool
+	IsTypeOf(reflect.Type) bool
 
 	Unwrap() T
 	UnwrapAny() any
@@ -74,13 +74,13 @@ type maybe[T any] struct {
 	isNil bool
 }
 
-type none[T any] struct {
-	maybe[T]
+type none struct {
+	maybe[any]
 }
 
 var Maybe Optional[any] = maybe[any]{}
 
-var None Optional[any] = none[any]{IsNil: true, value: nil}
+var None Optional[any] = none{maybe[any]{isNil: true, value: nil}}
 
 func Just[T any](value T) Optional[T] {
 	isNil := IsNil(value)
@@ -153,3 +153,108 @@ func (m maybe[T]) Clone() Optional[T] {
 }
 
 // FlatMap
+func (m maybe[T]) FlatMap(fn func(T) Optional[T]) Optional[T] {
+	return fn(m.value)
+}
+
+// IfPresent: if the value is present, then apply the function, otherwise do nothing
+func (m maybe[T]) IfPresent(fn func()) {
+	if m.IsPresent() {
+		fn()
+	}
+}
+
+// Kind: reflect.Kind of the value, which is the underlying type of the value, i.e. int, slice, struct, ptr, etc.
+func (m maybe[T]) Kind() reflect.Kind {
+	return reflect.ValueOf(m.value).Kind()
+}
+
+// Type: reflect.Type of the value, which is the detailed type of the value, i.e. int, []int, main.MyStruct, *int, etc.
+func (m maybe[T]) Type() reflect.Type {
+	if m.IsNil() {
+		return reflect.TypeOf(nil)
+	}
+	return reflect.TypeOf(m.value)
+}
+
+// IsKindOf: True if the value is of the specified kind
+func (m maybe[T]) IsKindOf(k reflect.Kind) bool {
+	return m.Kind() == k
+}
+
+// IsTypeOf: True if the value is of the specified type
+func (m maybe[T]) IsTypeOf(t reflect.Type) bool {
+	return m.Type() == t
+}
+
+// Unwrap: return the value
+func (m maybe[T]) Unwrap() T {
+	return m.value
+}
+
+// UnwrapAny: return the value as any
+func (m maybe[T]) UnwrapAny() any {
+	if m.IsNil() {
+		return nil
+	}
+	return m.value
+}
+
+// IsPresent: True if the value is present, not nil
+func (n none) IsPresent() bool {
+	return false
+}
+
+// IsNil: True if the value is not present, nil
+func (n none) IsNil() bool {
+	return true
+}
+
+// IsValid: True if the value is valid
+func (n none) IsValid() bool {
+	return false
+}
+
+// IsPtr: True if the value is a pointer
+func (n none) IsPtr() bool {
+	return false
+}
+
+// OrElse: return the value if present, otherwise return the default value of Type T
+func (n none) OrElse(defaultValue any) any {
+	return defaultValue
+}
+
+// Clone: make a clone of the Optional object
+func (n none) Clone() Optional[any] {
+	return None
+}
+
+// IfPresent: if the value is present, then apply the function, otherwise do nothing
+func (n none) IfPresent(fn func()) {
+}
+
+// Kind: reflect.Kind of the value, which is the underlying type of the value, i.e. int, slice, struct, ptr, etc.
+func (n none) Kind() reflect.Kind {
+	return reflect.Invalid
+}
+
+// Type: reflect.Type of the value, which is the detailed type of the value, i.e. int, []int, main.MyStruct, *int, etc.
+func (n none) Type() reflect.Type {
+	return reflect.TypeOf(nil)
+}
+
+// IsKindOf: True if the value is of the specified kind
+func (n none) IsKindOf(k reflect.Kind) bool {
+	return false
+}
+
+// Unwrap: return the value
+func (n none) Unwrap() any {
+	return nil
+}
+
+// UnwrapAny: return the value as any
+func (n none) UnwrapAny() any {
+	return nil
+}

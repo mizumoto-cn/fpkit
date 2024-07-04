@@ -62,14 +62,14 @@ func TestCurry(t *testing.T) {
 			return cDef
 		}
 		a, b, c := args[0].(int), args[1].(int), args[2].(int)
-		cDef.MarkDone() // 标记完成
+		cDef.MarkDone() // Mark the curry chain as done
 		return a + b + c
 	}
 
-	// 创建一个新的柯里化实例
+	// Create a new curry function
 	Curry := functional.CurryNew(addFunc)
 
-	// 链式调用柯里化函数
+	// Call the curry function with 3 arguments
 	result := Curry.Call(1).Call(2).Call(3).Result().(int)
 	assert.Equal(t, 6, result)
 }

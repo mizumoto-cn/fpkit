@@ -109,6 +109,8 @@ type CurryDef[T any, R any] struct {
 }
 
 // CurryNew creates a new Curry instance.
+//
+// Deprecated: Use Curry1, Curry2, Curry3, Curry4, Curry5, Curry6 for specific number of arguments situations.
 func CurryNew(fn func(c *CurryDef[any, any], args ...any) any) *CurryDef[any, any] {
 	return CurryNewGenerics(fn)
 }
