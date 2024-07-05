@@ -67,7 +67,9 @@ func TestOrElse(t *testing.T) {
 	if opt.OrElse(0) != 42 {
 		t.Errorf("Expected OrElse to return 42, got %v", opt.OrElse(0))
 	}
-
+	if functional.Maybe.Just(nil).OrElse(0) != 0 {
+		t.Errorf("Expected OrElse to return 0, got %v", functional.Maybe.Just(nil).OrElse(0))
+	}
 	if functional.None.OrElse(0) != 0 {
 		t.Errorf("Expected OrElse to return 0, got %v", functional.None.OrElse(0))
 	}
@@ -166,5 +168,27 @@ func TestMaybeJust(t *testing.T) {
 	}
 	if opt.UnwrapAny() != 42 {
 		t.Errorf("Expected UnwrapAny to return 42, got %v", opt.UnwrapAny())
+	}
+}
+
+func TestMakeCloneNil(t *testing.T) {
+	opt := functional.Maybe.Just(nil)
+	clone := opt.Clone()
+	if clone.IsPresent() {
+		t.Error("Expected clone not to be present")
+	}
+	if clone.UnwrapAny() != nil {
+		t.Errorf("Expected clone to be nil, got %v", clone.UnwrapAny())
+	}
+}
+
+func TestMakeClonePtr(t *testing.T) {
+	opt := functional.Maybe.Just(&struct{}{})
+	clone := opt.Clone()
+	if !clone.IsPresent() {
+		t.Error("Expected clone to be present")
+	}
+	if clone.UnwrapAny() == nil {
+		t.Error("Expected clone not to be nil")
 	}
 }
