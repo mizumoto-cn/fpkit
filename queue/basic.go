@@ -16,25 +16,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package err
+package queue
 
-import (
-	"fmt"
-	"time"
-)
+import "github.com/mizumoto-cn/fpkit/internal/err"
 
-func NewIndexOutOfRangeError(index, length int) error {
-	return fmt.Errorf("fpkit: index out of range: [%d] with length: %d", index, length)
+// NewBasicQueue creates a new basicQueue.
+func NewBasicQueue[T any](cap int) Queue[T] {
+	return &basicQueue[T]{data: make([]T, 0, cap), cap: cap}
 }
 
-func NewQueueFullError(cap, l int) error {
-	return fmt.Errorf("fpkit: queue is full, capacity is %d, current length is %d", cap, l)
+// basicQueue is a basic generic FIFO queue.
+type basicQueue[T any] struct {
+	data []T
+	cap  int
 }
 
-func NewTypeCastError(from any, to string) error {
-	return fmt.Errorf("fpkit: cannot cast type %#v to %s", from, to)
-}
-
-func NewInvalidTimeIntervalError(interval time.Duration) error {
-	return fmt.Errorf("fpkit: invalid time interval: [%v]", interval)
+// Push adds an element to the end of the queue.
+func (q *basicQueue[T]) Push(t T) error {
+	// check if the queue is full
+	if len(q.data) >= cap(q.data) {
+		return err.NewQueueFullError()
+	}
 }

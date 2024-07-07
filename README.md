@@ -39,8 +39,8 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 ### v0.0.2
 
-- [ ] Functional Programming: Optional/Maybe
-- [ ] Functional Programming: Currying, Composition, ...
+- [x] Functional Programming: Optional/Maybe
+- [x] Functional Programming: Currying, Composition, ...
 - [ ] Basic Queue: Queue, Priority Queue
 
 ### v0.1.0
