@@ -72,4 +72,7 @@ func TestCurry(t *testing.T) {
 	// Call the curry function with 3 arguments
 	result := Curry.Call(1).Call(2).Call(3).Result().(int)
 	assert.Equal(t, 6, result)
+
+	// test IsDone
+	assert.True(t, Curry.IsDone())
 }
