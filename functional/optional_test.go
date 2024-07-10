@@ -210,7 +210,16 @@ func TestOrElseNil(t *testing.T) {
 
 	var zero *struct{}
 	opt2 := functional.Maybe.Just(zero)
+	// opt2 is still a none
+	// uses none.OrElse
 	if opt2.OrElse(1234) != 1234 {
+		t.Error("Expected OrElse to return 1234")
+	}
+
+	var zero2 int
+	opt3 := functional.Just(zero2)
+	// uses maybe.OrElse
+	if opt3.OrElse(1234) != 1234 {
 		t.Error("Expected OrElse to return 1234")
 	}
 }
