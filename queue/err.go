@@ -18,18 +18,6 @@
  */
 package queue
 
-import "context"
-
-// BlockingQueue is a generic interface for a blocking queue.
-// Blocking queues are not always FIFO, it depends on the implementation.
-type BlockingQueue[T any] interface {
-	// Push adds an element to the the queue.
-	// when cancelled or timeout, return context.Canceled or context.DeadlineExceeded
-	// Shall always use errors.Is(err, context.Canceled) or errors.Is(err, context.DeadlineExceeded) to check the error
-	Push(ctx context.Context, t T) error
-
-	// TryPop removes and returns a element in the queue.
-	// when cancelled or timeout, return context.Canceled or context.DeadlineExceeded
-	// Shall always use errors.Is(err, context.Canceled) or errors.Is(err, context.DeadlineExceeded) to check the error
-	TryPop(ctx context.Context) (T, error)
-}
+var (
+// ...
+)

@@ -26,6 +26,24 @@ type Queue[T any] interface {
 
 	// Pop removes and returns a element in the queue.
 	Pop() (T, error)
+
+	// Empty returns true if the queue is empty.
+	Empty() bool
+
+	// Size returns the number of elements in the queue.
+	Size() int
+
+	// Cap returns the capacity of the queue. -1 means unlimited.
+	Cap() int
+
+	// Back returns the last element in the queue.
+	Back() (T, error)
+
+	// Front returns the first element in the queue.
+	Front() (T, error)
+
+	// Clear removes all elements in the queue.
+	Clear() error
 }
 
 // TODO: reference of C++ 11 std::queue
