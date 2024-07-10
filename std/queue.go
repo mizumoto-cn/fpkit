@@ -16,29 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package err
+package std
 
 import (
-	"fmt"
-	"time"
+	"github.com/mizumoto-cn/fpkit/queue"
 )
 
-func NewIndexOutOfRangeError(index, length int) error {
-	return fmt.Errorf("fpkit: index out of range: [%d] with length: %d", index, length)
-}
-
-func NewQueueFullError(cap, l int) error {
-	return fmt.Errorf("fpkit: queue is full, capacity is %d, current length is %d", cap, l)
-}
-
-func NewQueueResizeError(cap, l int) error {
-	return fmt.Errorf("fpkit: cannot resize queue with new capacity %d, current limitation is %d", cap, l)
-}
-
-func NewTypeCastError(from any, to string) error {
-	return fmt.Errorf("fpkit: cannot cast type %#v to %s", from, to)
-}
-
-func NewInvalidTimeIntervalError(interval time.Duration) error {
-	return fmt.Errorf("fpkit: invalid time interval: [%v]", interval)
+// std.Queue is a generic struct for a standard FIFO queue with a given capacity.
+type Queue[T any] struct {
+	queue.Queue[T]
 }

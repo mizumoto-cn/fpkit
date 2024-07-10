@@ -1,0 +1,124 @@
+/*
+ * Copyright (c) 2024 Ruiyuan "mizumoto-cn" Xu
+ *
+ * This file is part of "github.com/mizumoto-cn/fpkit".
+ *
+ * Licensed under the Mizumoto General Public License v1.5 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://github.com/mizumoto-cn/fpkit/blob/main/LICENSE
+ *     https://github.com/mizumoto-cn/fpkit/blob/main/licensing
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package queue
+
+import "github.com/mizumoto-cn/fpkit/internal/err"
+
+// NewBasicQueueOld creates a new BasicQueue.
+func NewBasicQueueOld[T any](cap int) *BasicQueueOld[T] {
+	return &BasicQueueOld[T]{data: make([]T, 0, cap), cap: cap}
+}
+
+// BasicQueueOld is a basic generic FIFO queue.
+// It has a limited capacity.
+type BasicQueueOld[T any] struct {
+	data []T
+	cap  int
+}
+
+// Push adds an element to the end of the queue.
+func (q *BasicQueueOld[T]) Push(t T) error {
+	// check if the queue is full
+	if len(q.data) >= cap(q.data) {
+		return err.NewQueueFullError(q.cap, len(q.data))
+	}
+	q.data = append(q.data, t)
+	return nil
+}
+
+// Pop removes and returns the first element in the queue.
+func (q *BasicQueueOld[T]) Pop() (T, error) {
+	var zero T
+	// check if the queue is empty
+	if len(q.data) == 0 {
+		return zero, err.NewIndexOutOfRangeError(0, 0)
+	}
+	t := q.data[0]
+	q.data = q.data[1:]
+	return t, nil
+}
+
+// Empty returns true if the queue is empty.
+func (q *BasicQueueOld[T]) Empty() bool {
+	return len(q.data) == 0
+}
+
+// Size returns the number of elements in the queue.
+func (q *BasicQueueOld[T]) Size() int {
+	return len(q.data)
+}
+
+// Front returns the first element in the queue.
+func (q *BasicQueueOld[T]) Front() (T, error) {
+	var zero T
+	// check if the queue is empty
+	if len(q.data) == 0 {
+		return zero, err.NewIndexOutOfRangeError(0, 0)
+	}
+	return q.data[0], nil
+}
+
+// Back returns the last element in the queue.
+func (q *BasicQueueOld[T]) Back() (T, error) {
+	var zero T
+	// check if the queue is empty
+	if len(q.data) == 0 {
+		return zero, err.NewIndexOutOfRangeError(0, 0)
+	}
+	return q.data[len(q.data)-1], nil
+}
+
+// Resize changes the capacity of the queue.
+// If shrink is true, the queue will be resized to the minimum of cap and the current size and
+// if there are more elements than the new capacity, the extra elements will be discarded.
+// Resize changes the capacity of the queue.
+// If shrink is true, the queue will be resized to the minimum of cap and the current size and
+// if there are more elements than the new capacity, the extra elements will be discarded.
+func (q *BasicQueueOld[T]) Resize(cap int, shrink bool) {
+	if shrink {
+		if cap < len(q.data) {
+			q.data = q.data[:cap]
+		}
+		t := make([]T, len(q.data), cap)
+		copy(t, q.data)
+		q.data = t
+	}
+}
+
+// Cap returns the capacity of the queue.
+func (q *BasicQueueOld[T]) Cap() int {
+	return q.cap
+}
+
+// Clear removes all elements in the queue.
+func (q *BasicQueueOld[T]) Clear() error {
+	q.data = q.data[:0]
+	return nil
+}
+
+// Swap swaps the contents of two queues.
+// The capacity of the queues will be set to be the bigger of the two.
+func (q *BasicQueueOld[T]) Swap(q2 Queue[T]) {
+	qq2 := q2.(*BasicQueueOld[T])
+	if len(q.data) > len(qq2.data) {
+		q.data, qq2.data = qq2.data, q.data
+	} else {
+		q.data, qq2.data = qq2.data, q.data
+	}
+}

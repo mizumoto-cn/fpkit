@@ -180,6 +180,15 @@ func TestMakeCloneNil(t *testing.T) {
 	if clone.UnwrapAny() != nil {
 		t.Errorf("Expected clone to be nil, got %v", clone.UnwrapAny())
 	}
+
+	clone2 := functional.MakeClone[any](opt, nil)
+	if clone2.IsPresent() {
+		t.Error("Expected clone2 not to be present")
+	}
+
+	if clone2.UnwrapAny() != nil {
+		t.Errorf("Expected clone2 to be nil, got %v", clone2.UnwrapAny())
+	}
 }
 
 func TestMakeClonePtr(t *testing.T) {
@@ -190,5 +199,31 @@ func TestMakeClonePtr(t *testing.T) {
 	}
 	if clone.UnwrapAny() == nil {
 		t.Error("Expected clone not to be nil")
+	}
+}
+
+func TestOrElseNil(t *testing.T) {
+	opt := functional.Maybe.Just(nil)
+	if opt.OrElse(nil) != nil {
+		t.Error("Expected OrElse to return nil")
+	}
+
+	var zero *struct{}
+	opt2 := functional.Maybe.Just(zero)
+	if opt2.OrElse(1234) != 1234 {
+		t.Error("Expected OrElse to return 1234")
+	}
+}
+
+func TestUnwrapAnyWhenNil(t *testing.T) {
+	opt := functional.Maybe.Just(nil)
+	if opt.UnwrapAny() != nil {
+		t.Error("Expected UnwrapAny to return nil")
+	}
+}
+
+func TestUnWrapNone(t *testing.T) {
+	if functional.None.UnwrapAny() != nil {
+		t.Error("Expected UnwrapAny to return nil")
 	}
 }
