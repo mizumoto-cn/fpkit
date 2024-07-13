@@ -31,3 +31,5 @@ type Orderable interface {
 }
 
 type Comparator[T Orderable] func(T, T) bool
+
+type ComparatorAny[T any] func(T, T) bool

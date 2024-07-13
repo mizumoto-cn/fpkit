@@ -35,6 +35,10 @@ func NewQueueResizeError(cap, l int) error {
 	return fmt.Errorf("fpkit: cannot resize queue with new capacity %d, current limitation is %d", cap, l)
 }
 
+func NewQueueCapacityError(cap int) error {
+	return fmt.Errorf("fpkit: invalid queue capacity: %d", cap)
+}
+
 func NewTypeCastError(from any, to string) error {
 	return fmt.Errorf("fpkit: cannot cast type %#v to %s", from, to)
 }
