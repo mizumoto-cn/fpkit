@@ -175,5 +175,5 @@ import "github.com/mizumoto-cn/fpkit/functional"
 
          ```go
          value := ab.Get()
-         // value: true
+         // Assuming the value was set to true earlier, value now should be true
          ```

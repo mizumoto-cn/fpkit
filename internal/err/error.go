@@ -23,6 +23,10 @@ import (
 	"time"
 )
 
+var (
+	ErrEmptyQueue = fmt.Errorf("fpkit: empty queue")
+)
+
 func NewIndexOutOfRangeError(index, length int) error {
 	return fmt.Errorf("fpkit: index out of range: [%d] with length: %d", index, length)
 }
