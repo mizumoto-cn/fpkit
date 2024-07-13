@@ -18,7 +18,7 @@ import "github.com/mizumoto-cn/fpkit/functional"
 
 2. **FnObj**
    - **Description**: Represents a function that takes input of type `T` and returns a single output of type `R`.
-   - **Type**: `type Fn[T, R any] func(...T) R`
+   - **Type**: `type FnObj[T, R any] func(...T) R`
 
 ### functional/reflect.go
 
