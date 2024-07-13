@@ -122,5 +122,3 @@ func (q *ArrayBlockingQueue[T]) Size() int {
 func (q *ArrayBlockingQueue[T]) Cap() int {
 	return q.cap
 }
-
-// Wait

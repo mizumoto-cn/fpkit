@@ -23,6 +23,9 @@ import (
 	"github.com/mizumoto-cn/fpkit/internal/err"
 )
 
+// PriorityQueue is a priority queue with a fixed capacity.
+//
+//	pq := queue.NewPriorityQueue[int](functional.Less[int], 3)
 type PriorityQueue[T any] struct {
 	cmp   functional.ComparatorAny[T]
 	data  []T

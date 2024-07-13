@@ -18,6 +18,7 @@
  */
 package slice
 
+// ToSlice converts the given values to a slice.
 func ToSlice[T any](v ...T) []T {
 	return v
 }

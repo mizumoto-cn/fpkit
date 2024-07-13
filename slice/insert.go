@@ -22,6 +22,7 @@ import (
 	"github.com/mizumoto-cn/fpkit/internal/slice"
 )
 
+// Insert inserts an element at the given index in the slice.
 func Insert[T any](s []T, index int, value T) ([]T, error) {
 	return slice.Insert(s, index, value)
 }

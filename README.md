@@ -63,7 +63,7 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 
 - [x] Functional Programming: Optional/Maybe
 - [x] Functional Programming: Currying, Composition, ...
-- [ ] Basic Queue: Queue, Priority Queue
+- [x] Basic Queue: Queue, Priority Queue
 - [ ] Advanced Queue and Concurrency: Concurrent queue, Concurrent blocking queue, Concurrent blocking priority queue
 
 ### v0.1.0
