@@ -37,6 +37,10 @@ type PriorityQueue[T any] struct {
 
 var _ Queue[int] = (*PriorityQueue[int])(nil)
 
+// NewPriorityQueue returns a new priority queue with the given capacity.
+// The capacity must be greater than 0, otherwise it will return an error.
+//
+//	NewPriorityQueue(func(a, b int) bool { return a < b }, 3)
 func NewPriorityQueue[T any](cmp functional.ComparatorAny[T], cap int) (*PriorityQueue[T], error) {
 	if cap <= 0 {
 		return nil, err.NewQueueCapacityError(cap)
@@ -51,6 +55,8 @@ func NewPriorityQueue[T any](cmp functional.ComparatorAny[T], cap int) (*Priorit
 	}, nil
 }
 
+// Push adds an element to the priority queue.
+// If the queue is full, it will return an error.
 func (pq *PriorityQueue[T]) Push(v T) error {
 	if pq.count == pq.cap {
 		return err.NewQueueFullError(pq.cap, pq.count)
@@ -62,6 +68,7 @@ func (pq *PriorityQueue[T]) Push(v T) error {
 	return nil
 }
 
+// up moves the element at index i up the heap to its correct position.
 func (pq *PriorityQueue[T]) up(i int) {
 	for {
 		parent := (i - 1 + pq.cap) % pq.cap
@@ -73,6 +80,7 @@ func (pq *PriorityQueue[T]) up(i int) {
 	}
 }
 
+// down moves the element at index i down the heap to its correct position.
 func (pq *PriorityQueue[T]) down(i int) {
 	for {
 		left := (2*i + 1) % pq.cap
@@ -92,6 +100,7 @@ func (pq *PriorityQueue[T]) down(i int) {
 	}
 }
 
+// Pop removes and returns the first element in the priority queue.
 func (pq *PriorityQueue[T]) Pop() (T, error) {
 	if pq.count == 0 {
 		var zero T
@@ -104,6 +113,7 @@ func (pq *PriorityQueue[T]) Pop() (T, error) {
 	return v, nil
 }
 
+// Front returns the first element in the priority queue.
 func (pq *PriorityQueue[T]) Front() (T, error) {
 	if pq.count == 0 {
 		var zero T
@@ -112,6 +122,7 @@ func (pq *PriorityQueue[T]) Front() (T, error) {
 	return pq.data[pq.head], nil
 }
 
+// Back returns the last element in the priority queue.
 func (pq *PriorityQueue[T]) Back() (T, error) {
 	if pq.count == 0 {
 		var zero T
@@ -121,22 +132,27 @@ func (pq *PriorityQueue[T]) Back() (T, error) {
 	return pq.data[tail], nil
 }
 
+// Size returns the number of elements in the priority queue.
 func (pq *PriorityQueue[T]) Size() int {
 	return pq.count
 }
 
+// Cap returns the capacity of the priority queue.
 func (pq *PriorityQueue[T]) Cap() int {
 	return pq.cap
 }
 
+// Empty returns true if the priority queue is empty.
 func (pq *PriorityQueue[T]) Empty() bool {
 	return pq.count == 0
 }
 
+// Full returns true if the priority queue is full.
 func (pq *PriorityQueue[T]) Full() bool {
 	return pq.count == pq.cap
 }
 
+// Clear removes all elements from the priority queue.
 func (pq *PriorityQueue[T]) Clear() error {
 	pq.head = 0
 	pq.tail = 0

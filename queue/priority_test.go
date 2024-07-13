@@ -81,4 +81,36 @@ func TestPriorityQueue(t *testing.T) {
 	assert.Zero(t, pq.Size())
 	assert.NotNil(t, err)
 	assert.Equal(t, 3, pq.Cap())
+
+	err = pq.Push(obj{Name: "Alice", Age: 20})
+	assert.Nil(t, err)
+	assert.Equal(t, 1, pq.Size())
+	err = pq.Push(obj{Name: "Bob", Age: 30})
+	assert.Equal(t, 2, pq.Size())
+	assert.Nil(t, err)
+	err = pq.Push(obj{Name: "Charlie", Age: 10})
+	assert.Equal(t, 3, pq.Size())
+	assert.Nil(t, err)
+
+	assert.NoError(t, pq.Clear())
+	assert.Zero(t, pq.Size())
+	assert.Equal(t, 3, pq.Cap())
+
+	err = pq.Push(obj{Name: "Alice", Age: 20})
+	assert.Nil(t, err)
+	assert.Equal(t, 1, pq.Size())
+	err = pq.Push(obj{Name: "Bob", Age: 30})
+	assert.Equal(t, 2, pq.Size())
+	assert.Nil(t, err)
+	err = pq.Push(obj{Name: "Charlie", Age: 10})
+	assert.Equal(t, 3, pq.Size())
+	assert.Nil(t, err)
+
+	v, err = pq.Front()
+	assert.Nil(t, err)
+	assert.Equal(t, obj{Name: "Charlie", Age: 10}, v)
+
+	v, err = pq.Back()
+	assert.Nil(t, err)
+	assert.Equal(t, obj{Name: "Bob", Age: 30}, v)
 }
