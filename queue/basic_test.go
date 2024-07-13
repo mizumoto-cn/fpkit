@@ -127,4 +127,26 @@ func TestBasicQueue(t *testing.T) {
 	for i := 0; i < 5; i++ {
 		assert.NoError(t, q.Push(i+5))
 	}
+
+	assert.Error(t, q.Resize(-1, true))
+
+	q2 := *queue.NewBasicQueue[int](10)
+	assert.NoError(t, q2.Push(1))
+	assert.NoError(t, q2.Push(2))
+
+	// Test Swap
+	q.Swap(&q2)
+	assert.Equal(t, 2, q.Size())
+	assert.Equal(t, 10, q2.Size())
+	tmp, err := q.Pop()
+	assert.NoError(t, err)
+	assert.Equal(t, 1, tmp)
+	tmp, err = q.Pop()
+	assert.NoError(t, err)
+	assert.Equal(t, 2, tmp)
+	for i := 0; i < 10; i++ {
+		tmp, err = q2.Pop()
+		assert.NoError(t, err)
+		assert.Equal(t, i, tmp)
+	}
 }
