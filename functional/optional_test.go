@@ -204,14 +204,22 @@ func TestMakeClonePtr(t *testing.T) {
 
 func TestOrElseNil(t *testing.T) {
 	opt := functional.Maybe.Just(nil)
-	if opt.OrElse(nil) != nil {
-		t.Error("Expected OrElse to return nil")
+	if opt.OrElse(interface{}(1)) != 1 {
+		t.Error("Expected OrElse to return 1")
 	}
 
 	var zero *struct{}
 	opt2 := functional.Maybe.Just(zero)
+	// opt2 is still a none
+	// uses none.OrElse
 	if opt2.OrElse(1234) != 1234 {
 		t.Error("Expected OrElse to return 1234")
+	}
+
+	opt3 := functional.Just[any](nil)
+	// uses maybe.OrElse
+	if opt3.OrElse(interface{}(1)) != 1 {
+		t.Error("Expected OrElse to return 1")
 	}
 }
 
