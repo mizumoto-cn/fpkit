@@ -19,7 +19,10 @@
 package functional
 
 // basic type for function
-type FnObject func(any) any
+type FnObject func(...any) any
+
+// generic basic type for function
+type FnObj[T any, R any] func(...T) R
 
 // return true if src is "defined to be equal" to dst
 type eqFn[T any] func(src, dst T) bool

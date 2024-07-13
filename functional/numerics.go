@@ -20,6 +20,8 @@ package functional
 
 import "sort"
 
+// Sum returns the sum of the given numbers.
+//	Sum(1, 2, 3) // => 6
 func Sum[T Numeric](a ...T) T {
 	var sum T
 	for _, v := range a {
@@ -29,6 +31,7 @@ func Sum[T Numeric](a ...T) T {
 }
 
 // For comparison in this package, >0 means a > b, <0 means a < b, and 0 means a == b.
+//	CompareTo(1, 2) // => -1
 func CompareTo[T Orderable](a, b T) int {
 	if a > b {
 		return 1
@@ -38,12 +41,16 @@ func CompareTo[T Orderable](a, b T) int {
 	return 0
 }
 
+// Sort sorts the given slice in place using the given comparator.
+//	Sort([]int{3, 1, 2}, func(a, b int) bool { return a < b }) // => []int{1, 2, 3}
 func Sort[T Orderable](a []T, cmp Comparator[T]) {
 	sort.SliceStable(a, func(i, j int) bool {
 		return cmp(a[i], a[j])
 	})
 }
 
+// SortOrdered sorts the given slice in ascending or descending order.
+//	SortOrdered(true, 3, 1, 2) // => []int{1, 2, 3}
 func SortOrdered[T Orderable](ascending bool, input ...T) []T {
 	if ascending {
 		Sort(input, func(a, b T) bool {
@@ -59,10 +66,14 @@ func SortOrdered[T Orderable](ascending bool, input ...T) []T {
 	return input
 }
 
+// SortAsc sorts the given slice in ascending order.
+//	SortAsc(3, 1, 2) // => []int{1, 2, 3}
 func SortAsc[T Orderable](input ...T) []T {
 	return SortOrdered(true, input...)
 }
 
+// SortDesc sorts the given slice in descending order.
+//	SortDesc(3, 1, 2) // => []int{3, 2, 1}
 func SortDesc[T Orderable](input ...T) []T {
 	return SortOrdered(false, input...)
 }

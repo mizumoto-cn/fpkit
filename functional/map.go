@@ -18,6 +18,8 @@
  */
 package functional
 
+// Map applies the function to each element in the slice and returns a new slice containing the results.
+//	Map(func(x int) int { return x * 2 }, 1, 2, 3, 4, 5) // [2, 4, 6, 8, 10]
 func Map[T, U any](f func(T) U, s ...T) []U {
 	r := make([]U, len(s))
 	for i, v := range s {

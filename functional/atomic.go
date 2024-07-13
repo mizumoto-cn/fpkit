@@ -20,10 +20,12 @@ package functional
 
 import "sync/atomic"
 
+// AtomicBool is a boolean value that can be atomically set and read.
 type AtomicBool struct {
 	value int32
 }
 
+// Set sets the value of the atomic boolean.
 func (ab *AtomicBool) Set(value bool) {
 	var intVal int32
 	if value {
@@ -34,6 +36,7 @@ func (ab *AtomicBool) Set(value bool) {
 	atomic.StoreInt32(&ab.value, intVal)
 }
 
+// Get gets the value of the atomic boolean.
 func (ab *AtomicBool) Get() bool {
 	return atomic.LoadInt32(&ab.value) == 1
 }

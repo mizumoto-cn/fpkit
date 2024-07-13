@@ -18,6 +18,8 @@
  */
 package functional
 
+// Filter returns a new slice containing only the elements that satisfy the predicate.
+//	Filter(func(x int, i int) bool { return x > 0 }, 1, -2, 3, -4, 5) // [1, 3, 5]
 func Filter[T any](fn func(T, int) bool, input ...T) []T {
 	list := make([]T, len(input))
 	newLen := 0
