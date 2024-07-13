@@ -12,6 +12,28 @@
 
 A light-weight Go functional tools lib, with generic programming support.
 
+## Table of Contents
+
+- [fpkit](#fpkit)
+  - [Table of Contents](#table-of-contents)
+  - [Quick Start](#quick-start)
+  - [Documentation](#documentation)
+  - [Milestones](#milestones)
+  - [Roadmap](#roadmap)
+    - [v0.0.1](#v001)
+    - [v0.0.2](#v002)
+    - [v0.1.0](#v010)
+    - [v0.2.0](#v020)
+    - [v0.3.0](#v030)
+    - [v0.4.0](#v040)
+    - [v1.0.0 and later](#v100-and-later)
+  - [Design Philosophy](#design-philosophy)
+    - [Functional Programming vs Go](#functional-programming-vs-go)
+      - [Records of v0.0.1](#records-of-v001)
+      - [Records of v0.0.2](#records-of-v002)
+  - [Contributing](#contributing)
+  - [Licensing](#licensing)
+
 ## Quick Start
 
 First, install the package.
@@ -42,6 +64,7 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 - [x] Functional Programming: Optional/Maybe
 - [x] Functional Programming: Currying, Composition, ...
 - [ ] Basic Queue: Queue, Priority Queue
+- [ ] Advanced Queue and Concurrency: Concurrent queue, Concurrent blocking queue, Concurrent blocking priority queue
 
 ### v0.1.0
 
@@ -49,7 +72,6 @@ All documentation is available in the [Wiki](./Wiki/) folder.
 - [ ] Basic Map
 - [ ] Advanced Map: Hash map, Tree map, Linked map
 - [ ] Set: Hash set, Tree set, Sorted set
-- [ ] Advanced Queue and Concurrency: Concurrent queue, Concurrent blocking queue, Concurrent blocking priority queue
 
 ### v0.2.0
 
@@ -85,7 +107,18 @@ All documentation is available in the [Wiki](./Wiki/) folder.
   - Yet you can also use `functional.Some(slice.Insert(...))` to wrap the result.
   - We will also implement encapsulated functions like `slice.InsertOrError(...)` to return `Option` or `Maybe` in the future.(>=v0.4.0 or v1.0.0)
 
-### Licensing
+#### Records of v0.0.2
+
+- Blocking Queue
+  - For Array-based Blocking Queue, we will use `golang.org/x/sync/semaphore` package to implement it.
+  - Using semaphore will greatly reduce the complexity of the implementation, still I'm not sure about the performance.
+  - And would appreciate it if you could provide some advice on this or contribute to the project with a better implementation or benchmark.
+
+## Contributing
+
+Please refer to the [CONTRIBUTING](./CONTRIBUTING.md) file for more information.
+
+## Licensing
 
 This project is licensed under the Mizumoto.General.Public.License - see the [LICENSE](./LICENSE) file.
 As for the full context of this license, please refer to the markdown version: [Mizumoto General Public License v1.5](./licensing/Mizumoto.General.Public.License.v1.5.md).
