@@ -128,3 +128,5 @@ func TestPriorityQueue(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, obj{Name: "Bob", Age: 30}, v)
 }
+
+// TODO: Add more test cases to cover all scenarios of `down` function in priority.go

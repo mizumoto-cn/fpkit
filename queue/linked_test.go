@@ -428,3 +428,25 @@ func TestRacing(t *testing.T) {
 	wg.Wait()
 	assert.Equal(t, 0, q.Size())
 }
+
+func TestClearRace(t *testing.T) {
+	t.Parallel()
+	q := queue.NewLinkedQueue[int]()
+	for i := 0; i < 1000; i++ {
+		assert.NoError(t, q.Push(i))
+	}
+	var wg sync.WaitGroup
+	wg.Add(100)
+	errs := make(chan error, 100)
+	for i := 0; i < 100; i++ {
+		go func() {
+			errs <- q.Clear()
+		}()
+	}
+	println(len(errs))
+	assert.Greater(t, len(errs), 0)
+	go func() {
+		wg.Wait()
+		close(errs)
+	}()
+}
