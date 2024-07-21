@@ -25,15 +25,12 @@ import (
 // Curry2 returns a curried version of a function that takes 2 arguments.
 //
 // Input: fn func(A, B) R
+//
 // Output: func(A) func(B) R
 //
-// Example:
-//
-// func Add(a, b int) int { return a + b }
-//
-// Add2 := Curry2(Add)
-//
-// Add2(1)(2) // 3
+//	func Add(a, b int) int { return a + b }
+//	Add2 := Curry2(Add)
+//	Add2(1)(2) // 3
 func Curry2[A, B, R any](fn func(A, B) R) func(A) func(B) R {
 	return func(a A) func(B) R {
 		return func(b B) R {

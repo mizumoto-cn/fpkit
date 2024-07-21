@@ -78,16 +78,32 @@ type none struct {
 	maybe[any]
 }
 
+// Maybe: maybe, Optional[any]
+//	j := Maybe.Just(42) // j is a Optional[any] object with value 42
+//	k := j.OrElse(0)    // k is 42
+//	k = j.Unwrap()      // k is 42
 var Maybe Optional[any] = maybe[any]{}
 
+// None: none, Optional[any]
+//	j := Maybe.Just(nil) // j is a Optional[any], also a none.
+//	k := j.OrElse(0)    // k is 0
+//	l := Just(nil)      // l is a Optional[any] object with value nil, also a none.
+//	k = l.UnwrapAny()      // k is nil
 var None Optional[any] = none{maybe[any]{isNil: true, value: nil}}
 
+// Just: Just(T) Optional[T]
+//	j := Just(42) // j is a Optional[int] object with value 42
+//	k := j.OrElse(0)    // k is 42
+//	k = j.Unwrap()      // k is 42
 func Just[T any](value T) Optional[T] {
 	isNil := IsNil(value)
 	return maybe[T]{value: value, isNil: isNil}
 }
 
 // MakeClone: make a clone of the Optional object
+//	j := Just(42) // j is a Optional[int] object with value 42
+//	ptr := new(int)
+//	k := MakeClone(j, ptr) // k is a Optional[int] object with value 42, while value 42 stored in the address ptr points to.
 func MakeClone[T any](m Optional[T], dest *T) Optional[T] {
 	if m.IsNil() {
 		// return a new Optional object with nil value if the original Optional object is nil
@@ -132,6 +148,9 @@ func (m maybe[T]) IsPtr() bool {
 }
 
 // Just: Just(any) Optional[any]
+//	j := Maybe.Just(42) // j is a Optional[any] object with value 42
+//	k := j.OrElse(0)    // k is 42
+//	k = j.Unwrap()      // k is 42
 func (m maybe[T]) Just(value any) Optional[any] {
 	if IsNil(value) {
 		return None
@@ -140,6 +159,12 @@ func (m maybe[T]) Just(value any) Optional[any] {
 }
 
 // OrElse: return the value if present, otherwise return the default value of Type T
+//	j := Maybe.Just(42) // j is a Optional[any] object with value 42
+//	k := j.OrElse(0)    // k is 42
+//	k = j.Unwrap()      // k is 42
+//	j = Maybe.Just(nil) // j is a Optional[any] object with value nil
+//	k = j.OrElse(0)     // k is 0
+//	k = j.Unwrap()      // k is nil
 func (m maybe[T]) OrElse(defaultValue T) T {
 	if m.IsNil() {
 		return defaultValue
@@ -152,7 +177,14 @@ func (m maybe[T]) Clone() Optional[T] {
 	return MakeClone(m, new(T))
 }
 
-// FlatMap
+// FlatMap is a monadic operation that applies a function to the value
+// and returns a new Optional object with the new value.
+//	j := Maybe.Just(10) // j is a Optional[int] object with value 10
+//	result := j.FlatMap(func(v int) functional.Optional[int] { return Just(v / 2) })
+//	// result is a Optional[int] object with value 5
+//	k := None.FlatMap(func(v any) functional.Optional[any] { return Just(42) })
+//	// k is a Optional[any] object with value 42
+//	l := k.Unwrap() // l is 42
 func (m maybe[T]) FlatMap(fn func(T) Optional[T]) Optional[T] {
 	return fn(m.value)
 }

@@ -18,16 +18,23 @@
  */
 package functional
 
+// Real represents a real number type.
 type Real interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~float32 | ~float64
 }
 
+// Numeric represents a numeric type, including real and complex numbers.
 type Numeric interface {
 	Real | ~complex64 | ~complex128
 }
 
+// Orderable represents a type that can be ordered.
 type Orderable interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~float32 | ~float64 | ~string
 }
 
+// Comparator is a function type that compares two values of the same Orderable type.
 type Comparator[T Orderable] func(T, T) bool
+
+// ComparatorAny is a function type that compares two values of any type.
+type ComparatorAny[T any] func(T, T) bool

@@ -23,6 +23,10 @@ import (
 	"time"
 )
 
+var (
+	ErrEmptyQueue = fmt.Errorf("fpkit: empty queue")
+)
+
 func NewIndexOutOfRangeError(index, length int) error {
 	return fmt.Errorf("fpkit: index out of range: [%d] with length: %d", index, length)
 }
@@ -33,6 +37,10 @@ func NewQueueFullError(cap, l int) error {
 
 func NewQueueResizeError(cap, l int) error {
 	return fmt.Errorf("fpkit: cannot resize queue with new capacity %d, current limitation is %d", cap, l)
+}
+
+func NewQueueCapacityError(cap int) error {
+	return fmt.Errorf("fpkit: invalid queue capacity: %d", cap)
 }
 
 func NewTypeCastError(from any, to string) error {

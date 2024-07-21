@@ -26,18 +26,26 @@ func PtrOf[T any](v T) *T {
 	return &v
 }
 
+// The SliceOf function returns a new slice containing the passed-in values.
+//	SliceOf(1, 2, 3, 4, 5) // [1, 2, 3, 4, 5]
 func SliceOf[T any](v ...T) []T {
 	return v
 }
 
+// The IsPtr function returns true if the passed-in value is a pointer.
+//	IsPtr(42) // false
 func IsPtr[T any](v T) bool {
 	return Kind(v) == reflect.Ptr
 }
 
+// The Kind function returns the reflect.Kind of the passed-in value.
+//	Kind(42) // int
 func Kind[T any](v T) reflect.Kind {
 	return reflect.ValueOf(v).Kind()
 }
 
+// The IsNil function returns true if the passed-in value is nil.
+//	IsNil(nil) // true
 func IsNil[T any](v T) bool {
 	// 2 cases, pointer or not
 	val := reflect.ValueOf(v)

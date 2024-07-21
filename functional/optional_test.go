@@ -98,10 +98,16 @@ func TestFlatMap(t *testing.T) {
 	}
 
 	noneResult := functional.None.FlatMap(func(v any) functional.Optional[any] {
-		return functional.None.Just(nil)
+		return functional.Just[any](42)
 	})
-	if noneResult.IsPresent() {
-		t.Error("Expected noneResult to be not present")
+	if !noneResult.IsPresent() {
+		t.Error("Expected noneResult to be present")
+	}
+	if noneResult.UnwrapAny() != 42 {
+		t.Errorf("Expected noneResult to be 42, got %v", noneResult.UnwrapAny())
+	}
+	if noneResult.Unwrap() != 42 {
+		t.Errorf("Expected noneResult to be 42, got %v", noneResult.Unwrap())
 	}
 }
 
@@ -168,6 +174,10 @@ func TestMaybeJust(t *testing.T) {
 	}
 	if opt.UnwrapAny() != 42 {
 		t.Errorf("Expected UnwrapAny to return 42, got %v", opt.UnwrapAny())
+	}
+
+	if opt.Unwrap() != 42 {
+		t.Errorf("Expected Unwrap to return 42, got %v", opt.Unwrap())
 	}
 }
 

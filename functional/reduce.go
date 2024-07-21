@@ -19,6 +19,14 @@
 package functional
 
 // Foldl applies a function to each element of a list, starting from the left, and returns the final value.
+//	index := 0
+//	Foldl([]int{1, 2, 3, 4, 5, 6}, func(acc, x int) int {
+//		index++
+//		if index % 2 == 0 {
+//			return acc - x
+//		}
+//		return acc + x
+//	}, 0) // 0 + 1 - 2 + 3 - 4 + 5 - 6 = -3
 func Foldl[T any, U any](s []T, fn func(U, T) U, init U) U {
 	for _, v := range s {
 		init = fn(init, v)
@@ -27,6 +35,14 @@ func Foldl[T any, U any](s []T, fn func(U, T) U, init U) U {
 }
 
 // Foldr applies a function to each element of a list, starting from the right, and returns the final value.
+//	index := 0
+//	Foldr([]int{1, 2, 3, 4, 5, 6}, func(acc, x int) int {
+//		index++
+//		if index % 2 == 0 {
+//			return acc - x
+//		}
+//		return acc + x
+//	}, 0) // 0 + 6 - 5 + 4 - 3 + 2 - 1 = 3
 func Foldr[T any, U any](s []T, fn func(U, T) U, init U) U {
 	for i := len(s) - 1; i >= 0; i-- {
 		init = fn(init, s[i])
@@ -35,6 +51,9 @@ func Foldr[T any, U any](s []T, fn func(U, T) U, init U) U {
 }
 
 // Reduce applies a reduction function to each element of the slice on a left-to-right basis to a given initial value.
+//	Reduce([]int{1, 2, 3, 4, 5, 6}, func(acc, x int) int {
+//		return acc + x
+//	}, 0) // 0 + 1 + 2 + 3 + 4 + 5 + 6 = 21
 func Reduce[T any, U any](s []T, fn func(U, T) U, init U) U {
 	// result := init
 	// for _, v := range s {
