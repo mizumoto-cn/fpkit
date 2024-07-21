@@ -130,7 +130,8 @@ func TestArrayBlockingQueueRacePush(t *testing.T) {
 func TestArrayBlockingQueueRacePop(t *testing.T) {
 	q := queue.NewArrayBlockingQueue[int](20000)
 	for i := range 20000 {
-		q.Push(context.Background(), i)
+		err := q.Push(context.Background(), i)
+		assert.NoError(t, err)
 	}
 	for range 20000 {
 		go func() {

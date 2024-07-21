@@ -10,7 +10,7 @@
  *     https://github.com/mizumoto-cn/fpkit/blob/main/LICENSE
  *     https://github.com/mizumoto-cn/fpkit/blob/main/licensing
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless assertd by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -28,7 +28,7 @@ import (
 	"github.com/mizumoto-cn/fpkit/internal/err"
 	"github.com/mizumoto-cn/fpkit/queue"
 
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPush(t *testing.T) {
@@ -54,7 +54,7 @@ func TestPush(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			val:    2,
@@ -66,8 +66,8 @@ func TestPush(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
 			err := q.Push(tt.val)
-			require.Equal(t, tt.wErr, err)
-			require.Equal(t, tt.wanted, functional.SortAsc(q.Slice()...))
+			assert.Equal(t, tt.wErr, err)
+			assert.Equal(t, tt.wanted, functional.SortAsc(q.Slice()...))
 		})
 	}
 }
@@ -94,7 +94,7 @@ func TestPop(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 1,
@@ -105,8 +105,8 @@ func TestPop(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
 			val, err := q.Pop()
-			require.Equal(t, tt.wErr, err)
-			require.Equal(t, tt.wanted, val)
+			assert.Equal(t, tt.wErr, err)
+			assert.Equal(t, tt.wanted, val)
 		})
 	}
 }
@@ -131,7 +131,7 @@ func TestEmpty(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: false,
@@ -141,7 +141,7 @@ func TestEmpty(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
-			require.Equal(t, tt.wanted, q.Empty())
+			assert.Equal(t, tt.wanted, q.Empty())
 		})
 	}
 }
@@ -166,7 +166,7 @@ func TestSize(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 1,
@@ -176,7 +176,7 @@ func TestSize(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
-			require.Equal(t, tt.wanted, q.Size())
+			assert.Equal(t, tt.wanted, q.Size())
 		})
 	}
 }
@@ -201,7 +201,7 @@ func TestCap(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: -1,
@@ -211,7 +211,7 @@ func TestCap(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
-			require.Equal(t, tt.wanted, q.Cap())
+			assert.Equal(t, tt.wanted, q.Cap())
 		})
 	}
 }
@@ -238,7 +238,7 @@ func TestBack(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 1,
@@ -248,9 +248,9 @@ func TestBack(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				err = q.Push(2)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 2,
@@ -261,8 +261,8 @@ func TestBack(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
 			val, err := q.Back()
-			require.Equal(t, tt.wErr, err)
-			require.Equal(t, tt.wanted, val)
+			assert.Equal(t, tt.wErr, err)
+			assert.Equal(t, tt.wanted, val)
 		})
 	}
 }
@@ -289,7 +289,7 @@ func TestFront(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 1,
@@ -299,9 +299,9 @@ func TestFront(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				err = q.Push(2)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: 1,
@@ -312,8 +312,8 @@ func TestFront(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
 			val, err := q.Front()
-			require.Equal(t, tt.wErr, err)
-			require.Equal(t, tt.wanted, val)
+			assert.Equal(t, tt.wErr, err)
+			assert.Equal(t, tt.wanted, val)
 		})
 	}
 }
@@ -339,9 +339,9 @@ func TestClear(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				err = q.Push(2)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: zeroSlice,
@@ -351,8 +351,9 @@ func TestClear(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
-			q.Clear()
-			require.Equal(t, tt.wanted, q.Slice())
+			err := q.Clear()
+			assert.Equal(t, tt.wanted, q.Slice())
+			assert.NoError(t, err)
 		})
 	}
 }
@@ -378,9 +379,9 @@ func TestSlice(t *testing.T) {
 			q: func() *queue.LinkedQueue[int] {
 				q := queue.NewLinkedQueue[int]()
 				err := q.Push(1)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				err = q.Push(2)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				return q
 			},
 			wanted: []int{1, 2},
@@ -390,7 +391,7 @@ func TestSlice(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			q := tt.q()
-			require.Equal(t, tt.wanted, q.Slice())
+			assert.Equal(t, tt.wanted, q.Slice())
 		})
 	}
 }
@@ -404,7 +405,7 @@ func TestRacing(t *testing.T) {
 		go func() {
 			for j := 0; j < 1000; j++ {
 				v := rand.Intn(1000)
-				q.Push(j + v)
+				assert.NoError(t, q.Push(j+v))
 			}
 		}()
 	}
@@ -425,5 +426,5 @@ func TestRacing(t *testing.T) {
 		}()
 	}
 	wg.Wait()
-	require.Equal(t, 0, q.Size())
+	assert.Equal(t, 0, q.Size())
 }
