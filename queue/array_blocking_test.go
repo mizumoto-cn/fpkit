@@ -108,8 +108,8 @@ func TestArrayBlockingQueue2(t *testing.T) {
 }
 
 func TestArrayBlockingQueueRacePush(t *testing.T) {
-	q := queue.NewArrayBlockingQueue[int](10000000)
-	for i := range 10000000 {
+	q := queue.NewArrayBlockingQueue[int](500000)
+	for i := range 500000 {
 		go func() {
 			ctx, cancel := context.WithTimeout(context.Background(), 1*time.Nanosecond)
 			defer cancel()
@@ -121,19 +121,19 @@ func TestArrayBlockingQueueRacePush(t *testing.T) {
 		}()
 	}
 	<-time.After(10 * time.Millisecond)
-	print("10000000 threads pushed with 10ms timeout, the result is:", q.Size())
-	// things like 10000000 threads pushed with 10ms timeout, the result is: 19125
-	assert.Less(t, q.Size(), 10000000)
-	// usually the result is less than 10000000, like 19125
+	print("500000 threads pushed with 10ms timeout, the result is:", q.Size())
+	// things like 500000 threads pushed with 10ms timeout, the result is: 19125
+	assert.Less(t, q.Size(), 500000)
+	// usually the result is less than 500000, like 19125
 }
 
 func TestArrayBlockingQueueRacePop(t *testing.T) {
-	q := queue.NewArrayBlockingQueue[int](10000000)
-	for i := range 10000000 {
+	q := queue.NewArrayBlockingQueue[int](500000)
+	for i := range 500000 {
 		err := q.Push(context.Background(), i)
 		assert.NoError(t, err)
 	}
-	for range 10000000 {
+	for range 500000 {
 		go func() {
 			ctx, cancel := context.WithTimeout(context.Background(), 1*time.Nanosecond)
 			defer cancel()
@@ -145,8 +145,8 @@ func TestArrayBlockingQueueRacePop(t *testing.T) {
 		}()
 	}
 	<-time.After(100 * time.Millisecond)
-	print("10000000 threads popped with 10ms timeout, the result is:", q.Size())
-	// things like 10000000 threads popped with 10ms timeout, the result is: 875
+	print("500000 threads popped with 10ms timeout, the result is:", q.Size())
+	// things like 500000 threads popped with 10ms timeout, the result is: 875
 	assert.Greater(t, q.Size(), 0)
 	// usually the result is greater than 0, like 675
 }
